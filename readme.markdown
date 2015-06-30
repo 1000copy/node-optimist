@@ -1,3 +1,10 @@
+#虽然很想重用，但是....必须新建模块，基于optimist
+
+    1. 解决：从字符串解析，而不是from console 
+    2. 解决：对未定义的选项说不 
+    3. 解决：可以get-help到字符串，而不是console.print help done
+
+
 # DEPRECATION NOTICE
 
 I don't want to maintain this module anymore since I just use
