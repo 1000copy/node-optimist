@@ -9,8 +9,9 @@ var _ = require("underscore")
         require('optimist').argv
     to get a parsed version of process.argv.
 */
-
+// console.log(inst)
 var inst = Argv(process.argv.slice(2));
+console.log(inst)
 Object.keys(inst).forEach(function (key) {
     Argv[key] = typeof inst[key] == 'function'
         ? inst[key].bind(inst)
@@ -142,6 +143,9 @@ function Argv (processArgs, cwd) {
         return parseArgs(args);
     };
     self.parseString = function (str) {
+        // console.log("----"+str)
+        // console.log(parseArgsStringToArgv(str))
+        
         return parseArgs(parseArgsStringToArgv(str));
     };
     self.option = self.options = function (key, opt) {
@@ -290,7 +294,12 @@ function Argv (processArgs, cwd) {
       var j = Object.keys(argv)      
       var all_key_solved = _.difference(j,["_","$0"])
       var all_valid_keys = _.union(options.boolean , options.string)
-      return _.difference(all_key_solved,all_valid_keys)
+      // console.log(options)
+      // console.log(all_valid_keys)
+      if (all_valid_keys.length>0)
+        return _.difference(all_key_solved,all_valid_keys)
+      else
+        return []
     }
     function parseArgs (args) {
         var argv = minimist(args, options);
@@ -321,7 +330,9 @@ function Argv (processArgs, cwd) {
                 fail(err)
             }
         });
+        // console.log(argv)
         var invalids = undefined_keys(argv)
+        // console.log(invalids)
         if (invalids.length >0)
             fail('undefined key:'+invalids.toString())
         return argv;

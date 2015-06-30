@@ -15,7 +15,7 @@ examples
 ========
 
 
-But wait! There's more! You can do short options:
+Short options
 -------------------------------------------------
  
 short.js:

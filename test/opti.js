@@ -1,6 +1,5 @@
-var shell = require('..');
+
 var expect =require('chai').expect
-var _ = require("underscore")
 // var assert = require("assert")
 describe('optimist testcase', function(){
   // 多出来的选项要提示，比如b
