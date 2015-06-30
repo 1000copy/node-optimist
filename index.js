@@ -44,7 +44,7 @@ function Argv (processArgs, cwd) {
         alias: {},
         default: []
     };
-    
+    self._options = options;
     self.boolean = function (bools) {
         options.boolean.push.apply(options.boolean, [].concat(bools));
         return self;
