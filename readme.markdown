@@ -2,62 +2,18 @@
 
     1. 解决：从字符串解析，而不是from console 
     2. 解决：对未定义的选项说不 
-    3. 解决：可以get-help到字符串，而不是console.print help done
+    3. 解决：可以get-help到字符串，而不是console.print help 
 
 
-# DEPRECATION NOTICE
-
-I don't want to maintain this module anymore since I just use
-[minimist](https://npmjs.org/package/minimist), the argument parsing engine,
-directly instead nowadays.
-
-See [yargs](https://github.com/chevex/yargs) for the modern, pirate-themed
-successor to optimist.
-
-[![yarrrrrrrgs!](http://i.imgur.com/4WFGVJ9.png)](https://github.com/chevex/yargs)
-
-You should also consider [nomnom](https://github.com/harthur/nomnom).
 
 optimist
 ========
 
-Optimist is a node.js library for option parsing for people who hate option
-parsing. More specifically, this module is for people who like all the --bells
-and -whistlz of program usage but think optstrings are a waste of time.
-
-With optimist, option parsing doesn't have to suck (as much).
-
-[![build status](https://secure.travis-ci.org/substack/node-optimist.png)](http://travis-ci.org/substack/node-optimist)
+With Optimist, the options are just a hash! No optstrings attached.
 
 examples
 ========
 
-With Optimist, the options are just a hash! No optstrings attached.
--------------------------------------------------------------------
-
-xup.js:
-
-````javascript
-#!/usr/bin/env node
-var argv = require('optimist').argv;
-
-if (argv.rif - 5 * argv.xup > 7.138) {
-    console.log('Buy more riffiwobbles');
-}
-else {
-    console.log('Sell the xupptumblers');
-}
-````
-
-***
-
-    $ ./xup.js --rif=55 --xup=9.52
-    Buy more riffiwobbles
-    
-    $ ./xup.js --rif 12 --xup 8.1
-    Sell the xupptumblers
-
-![This one's optimistic.](http://substack.net/images/optimistic.png)
 
 But wait! There's more! You can do short options:
 -------------------------------------------------
@@ -155,7 +111,20 @@ console.log(argv.x / argv.y);
 
     Missing required arguments: y
 
-EVEN MORE HOLY COW
+依赖于命令行，写文档很罗嗦。。。可以直接parseString
+------------------
+````javascript
+    var argv = require('../')
+        .boolean(['x','y'])
+        .demand("x y".split(" "))     
+        .describe('x', 'Load a file')
+        .describe('y', 'Save a file')
+        .parseString("ls -xy")
+    expect(argv.x).to.equal(true)
+    expect(argv.y).to.equal(true)
+````
+
+设置默认值
 ------------------
 
 default_singles.js:

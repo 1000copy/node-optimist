@@ -31,6 +31,17 @@ describe('optimist testcase', function(){
     expect(argv.x).to.equal(true)
     expect(argv.y).to.equal(true)
   }) 
+  it('simple ParseString', function(){
+    var argv = require('../')
+        .boolean(['x','y'])
+        .demand("x y".split(" "))     
+        .describe('x', 'Load a file')
+        .describe('y', 'Save a file')
+        .parseString("ls -xy")
+    // console.log(argv)
+    expect(argv.x).to.equal(true)
+    expect(argv.y).to.equal(true)
+  }) 
   // get help
   it('help', function(){
       var cmd = ("ls -xy").split(' ')
