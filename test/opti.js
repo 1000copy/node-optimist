@@ -65,13 +65,11 @@ describe('optimist testcase', function(){
       .demand("x".split(" "))     
       .describe('x', 'Load a file')
       .describe('y', 'Save a file')
-    try{
-      var argv = core.argv
-    }catch(e){
-       expect(e.message.length>0).to.equal(true)  
-       // expect(e.message).to.equal(true)  
-     }
-    ;
-    
+      try{
+        var argv = core.argv
+      }catch(e){
+         expect(e.message.length>0).to.equal(true)  
+         // expect(e.message).to.equal(true)  
+      }
   }) 
 }) 

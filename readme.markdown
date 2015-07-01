@@ -85,7 +85,26 @@ For example:
 
 
 
+error  handler
+-------------
 
+成功返回解析后的argv，失败抛出异常，异常消息为帮助和错误提示
+````
+var cmd = ("ls -xyz").split(' ')
+var rr= require('../')(cmd)
+var core = rr.
+usage("Usage:\nls list file ").
+boolean(['x','y'])
+.demand("x".split(" "))     
+.describe('x', 'Load a file')
+.describe('y', 'Save a file')
+try{
+var argv = core.argv
+}catch(e){
+ expect(e.message.length>0).to.equal(true)  
+ // expect(e.message).to.equal(true)  
+}
+````
 .help()
 -------
 
