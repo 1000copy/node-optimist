@@ -1,8 +1,3 @@
-#虽然很想重用，但是....必须新建模块，基于optimist
-
-    1. 解决：从字符串解析，而不是from console 
-    2. 解决：对未定义的选项说不 
-    3. 解决：可以get-help到字符串，而不是console.print help 
 
 
 
@@ -11,26 +6,51 @@ opt-string
 
 With opt-string, the options are just a hash! No optstrings attached.
 
+虽然很想重用，但是...
+========
+.必须新建模块，基于optimist,以便：
+
+    1. 解决：从字符串解析，而不是from console 
+    2. 解决：对未定义的选项说不 
+    3. 解决：可以get-help到字符串，而不是console.print help 
+
+
 examples
 ========
 
 
-Short options
+Short ,Long ,and Position with boolean type (or string) options
 -------------------------------------------------
-
-
-And Position options . 
--------------------------------------------------
- 
-nonopt.js:
 
 ````javascript
-    var a = require('../') 
-    var self = a()      
-    var argv =  self.parseString("ls -x abc -y def ghi")
-    expect(argv._).to.eql("ls ghi".split(" "))
-    expect(argv.x).to.eql("abc")
-    expect(argv.y).to.eql("def")
+        var a = require('../') 
+        var self = a()
+        self
+            .usage("a headline usage text")
+            .wrap()
+            .options('x', {
+                alias : 'xxx',
+                type:"boolean"              
+            })
+            .options('y', {
+                alias : 'yyy',
+                default : 'ydefault',
+                describe:"a yyy option",
+                type:"string",
+                demand:true
+            })      
+        // console.log(self.help())
+        var argv = self. parseString("ls --xxx abc -y def ghi"); 
+        expect(argv.x).to.eql(argv.xxx)
+        expect(argv.x).to.eql(true)
+        expect(argv.y).to.eql("def")
+        expect(argv._).to.eql("ls abc ghi".split(" "))
+        //default value
+        var argv = self. parseString("ls --xxx abc  ghi"); 
+        expect(argv.x).to.eql(argv.xxx)
+        expect(argv.x).to.eql(true)
+        expect(argv.y).to.eql("ydefault")
+        expect(argv._).to.eql("ls abc ghi".split(" "))
 ````
 
 
@@ -66,36 +86,19 @@ For example:
 
 
 
-???.wrap(columns)
---------------
-
-Format usage output to wrap at `columns` many columns.
-
 .help()
 -------
 
 Return the generated usage string.
 
 
-
-
 installation
 ============
 
 With [npm](http://github.com/isaacs/npm), just do:
-    npm install optimist
- 
-or clone this project on github:
+    npm install opt-string
 
-    git clone http://github.com/substack/node-optimist.git
-
-To run the tests with [expresso](http://github.com/visionmedia/expresso),
-just do:
-    
-    expresso
-
-inspired By
+acknowledge
 ===========
 
-This module is loosely inspired by Perl's
-[Getopt::Casual](http://search.cpan.org/~photo/Getopt-Casual-0.13.1/Casual.pm).
+base on [optimist](https://github.com/substack/node-optimist)
