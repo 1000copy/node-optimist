@@ -5,25 +5,9 @@ var _ = require("underscore")
 
 
 var exports = module.exports = Argv;
-function Argv (processArgs, cwd) {
+function Argv () {
     var self = {};
-    if (!cwd) cwd = process.cwd();
     
-    self.$0 = process.argv
-        .slice(0,2)
-        .map(function (x) {
-            var b = rebase(cwd, x);
-            return x.match(/^\//) && b.length < x.length
-                ? b : x
-        })
-        .join(' ')
-    ;
-    
-    if (process.env._ != undefined && process.argv[1] == process.env._) {
-        self.$0 = process.env._.replace(
-            path.dirname(process.execPath) + '/', ''
-        );
-    }
     
     var options = {
         boolean: [],
@@ -31,7 +15,7 @@ function Argv (processArgs, cwd) {
         alias: {},
         default: []
     };
-    self._options = options;
+    
     self.boolean = function (bools) {
         options.boolean.push.apply(options.boolean, [].concat(bools));
         return self;
@@ -272,10 +256,6 @@ function Argv (processArgs, cwd) {
         return help.join('\n');
     };
     
-    Object.defineProperty(self, 'argv', {
-        get : function () { return parseArgs(processArgs) },
-        enumerable : true,
-    });
     function undefined_keys(argv){
       var j = Object.keys(argv)      
       var all_key_solved = _.difference(j,["_","$0"])
@@ -338,21 +318,6 @@ function Argv (processArgs, cwd) {
     return self;
 };
 
-// rebase an absolute path to a relative one with respect to a base directory
-// exported for tests
-exports.rebase = rebase;
-function rebase (base, dir) {
-    var ds = path.normalize(dir).split('/').slice(1);
-    var bs = path.normalize(base).split('/').slice(1);
-    
-    for (var i = 0; ds[i] && ds[i] == bs[i]; i++);
-    ds.splice(0, i); bs.splice(0, i);
-    
-    var p = path.normalize(
-        bs.map(function () { return '..' }).concat(ds).join('/')
-    ).replace(/\/$/,'').replace(/^$/, '.');
-    return p.match(/^[.\/]/) ? p : './' + p;
-};
 function parseArgsStringToArgv(value, env, file) {
     //[^\s'"] Match if not a space ' or "
     //+|['"] or Match ' or "
