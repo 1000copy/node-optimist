@@ -115,7 +115,8 @@ installation
 ============
 
 With [npm](http://github.com/isaacs/npm), just do:
-    npm install opt-string
+    
+    nnpm i git+https://git@github.com/1000copy/node-optimist.git
 
 acknowledge
 ===========
