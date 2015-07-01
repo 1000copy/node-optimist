@@ -89,7 +89,7 @@ error  handler
 -------------
 
 成功返回解析后的argv，失败抛出异常，异常消息为帮助和错误提示
-````
+````javascript
 var cmd = ("ls -xyz").split(' ')
 var rr= require('../')(cmd)
 var core = rr.

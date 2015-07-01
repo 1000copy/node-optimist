@@ -10,16 +10,22 @@ fsmonitor.watch('.', null, function(change) {
     // console.log("Modified folders: %j", change.modifiedFolders);
     // console.log("Removed folders:  %j", change.removedFolders);
     var spawn = require('child_process').spawn
-    ls    = spawn('C:\\Users\\lcj\\AppData\\Roaming\\npm\\mocha.cmd', []);
+    ls    = spawn('C:\\Users\\lcj\\AppData\\Roaming\\npm\\mocha.cmd', ["-c"]);// 有-c，输出有色彩。和直接mocha命令一样。棒。
+    var r = ""
     ls.stdout.on('data', function (data) {
-      console.log(data.toString('utf8'));
+      r+=data.toString('utf8');
     });
     ls.stderr.on('data', function (data) {
-      console.log(data.toString('utf8'));
+      r+=data.toString('utf8');
     });
 
     ls.on('close', function (code) {
-      console.log('--------------with　exit CODE:' + code);
+      if (code!=0){
+        console.log(r);
+        
+      }else
+         console.log("---------------all passed "); 
+      r = ''
     });
 });
 

@@ -41,7 +41,6 @@ describe('optimist testcase', function(){
     expect(argv.x).to.equal(true)
     expect(argv.y).to.equal(true)
   }) 
-  // get help
   it('help', function(){
       var cmd = ("ls -xy").split(' ')
       var rr= require('../')(cmd)
