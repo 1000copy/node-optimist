@@ -1,25 +1,23 @@
 {
-  "name": "optimist",
+  "name": "opt-string",
   "version": "0.6.1",
-  "description": "Light-weight option parsing with an argv hash. No optstrings attached.",
+  "description": "option parsing from string.",
   "main": "./index.js",
   "dependencies": {
     "minimist": "~0.0.1",
     "underscore": "^1.8.3",
     "wordwrap": "~0.0.2"
   },
-  "devDependencies": {
-    "assertion-error": "^1.0.1",
+  "devDependencies": {    
     "chai": "^3.0.0",
-    "hashish": "~0.0.4",
-    "tap": "~0.4.0"
+    "fsmonitor": "^0.2.4"     
   },
   "scripts": {
     "test": "tap ./test/*.js"
   },
   "repository": {
     "type": "git",
-    "url": "http://github.com/substack/node-optimist.git"
+    "url": "http://github.com/1000copy/node-optimist.git"
   },
   "keywords": [
     "argument",
@@ -31,11 +29,11 @@
     "command"
   ],
   "author": {
-    "name": "James Halliday",
-    "email": "mail@substack.net",
-    "url": "http://substack.net"
+    "name": "liu chuanjun",
+    "email": "1000copy@gmail.com",
+    "url": "http://badrobot.sinaapp.com"
   },
-  "license": "MIT/X11",
+  "license": "MIT",
   "engine": {
     "node": ">=0.4"
   }

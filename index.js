@@ -2,21 +2,7 @@ var path = require('path');
 var minimist = require('minimist');
 var wordwrap = require('wordwrap');
 var _ = require("underscore")
-/*  Hack an instance of Argv with process.argv into Argv
-    so people can do
-        require('optimist')(['--beeble=1','-z','zizzle']).argv
-    to parse a list of args and
-        require('optimist').argv
-    to get a parsed version of process.argv.
-*/
-// console.log(inst)
-var inst = Argv(process.argv.slice(2));
-console.log(inst)
-Object.keys(inst).forEach(function (key) {
-    Argv[key] = typeof inst[key] == 'function'
-        ? inst[key].bind(inst)
-        : inst[key];
-});
+
 
 var exports = module.exports = Argv;
 function Argv (processArgs, cwd) {
@@ -198,7 +184,7 @@ function Argv (processArgs, cwd) {
                 return acc;
             }, {})
         );
-        
+        // console.log(keys)
         var help = keys.length ? [ 'Options:' ] : [];
         
         if (usage) {
@@ -293,8 +279,12 @@ function Argv (processArgs, cwd) {
     function undefined_keys(argv){
       var j = Object.keys(argv)      
       var all_key_solved = _.difference(j,["_","$0"])
+      //remove alias key set if his short key is exists
+      var all_key_solved = _.reject(all_key_solved,function(n){return n.length != 1})
       var all_valid_keys = _.union(options.boolean , options.string)
+      // console.log(argv)
       // console.log(options)
+      // console.log(all_key_solved)
       // console.log(all_valid_keys)
       if (all_valid_keys.length>0)
         return _.difference(all_key_solved,all_valid_keys)
